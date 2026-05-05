@@ -1,0 +1,129 @@
+Create a highly modern, smooth animated personal portfolio website using Vue 3 + Vite.
+
+⚡ DESIGN GOAL:
+Replicate the style and feel of this reference:
+https://vt.tiktok.com/ZS94EWam2/
+— with smooth transitions, minimal layout, premium UI/UX, and clean typography.
+
+⚠️ IMPORTANT:
+- DO NOT include any images (use placeholders only)
+- Structure everything so I can easily replace images later
+- Focus heavily on animation, spacing, and interaction design
+
+---
+
+👤 PORTFOLIO OWNER:
+Name: JUSTINE P. BUNCAG  
+Role: Front-End Developer  
+
+---
+
+🧠 CORE UI/UX PRINCIPLES:
+- Minimal but premium design
+- Smooth scrolling experience (no janky movement)
+- Strong visual hierarchy (hero → projects → about → contact)
+- Micro-interactions on hover, scroll, and click
+- Clean spacing and alignment (grid-based layout)
+- Accessibility-friendly (readable text, proper contrast)
+
+Well-designed hero sections and animations significantly improve engagement and first impressions in portfolios :contentReference[oaicite:0]{index=0}
+
+---
+
+⚙️ TECH STACK:
+- Vue 3 (Composition API)
+- Vite
+- Tailwind CSS (or clean CSS)
+- GSAP or VueUse Motion for animations
+- Vue Router
+
+Modern Vue portfolios often use GSAP + scroll-triggered animations for smooth, professional transitions :contentReference[oaicite:1]{index=1}
+
+---
+
+🎬 REQUIRED SECTIONS:
+
+1. HERO SECTION
+- Full-screen intro
+- Animated text (fade/slide/typing effect)
+- Smooth entrance animations
+- CTA button (View Projects / Contact)
+- Subtle background animation (gradient / particles)
+
+---
+
+2. ABOUT SECTION
+- Short intro text
+- Animated reveal on scroll
+- Clean layout (2-column or centered)
+- Skills list with hover animation
+
+---
+
+3. PROJECTS SECTION
+- Grid or horizontal scroll layout
+- Each project card:
+  - Title
+  - Description
+  - Tech stack
+  - Hover animation (scale, glow, or lift)
+- Smooth reveal animations
+
+---
+
+4. EXPERIENCE / SKILLS SECTION
+- Animated progress bars or cards
+- Icons or labels (no images)
+- Scroll-triggered animations
+
+---
+
+5. CONTACT SECTION
+- Minimal form (Name, Email, Message)
+- Smooth focus/hover interactions
+- Animated button
+
+---
+
+6. NAVIGATION
+- Sticky navbar
+- Smooth scroll navigation
+- Active section highlight
+- Mobile responsive menu with animation
+
+---
+
+✨ ANIMATION REQUIREMENTS:
+- Page load animation (fade in / stagger)
+- Scroll-triggered animations (GSAP ScrollTrigger or Vue transitions)
+- Hover micro-interactions (buttons, cards)
+- Smooth easing (ease-in-out, cubic-bezier)
+- Optional: magnetic cursor or subtle parallax
+
+⚠️ Avoid over-animation — keep it smooth and professional
+
+---
+
+📱 RESPONSIVENESS:
+- Fully responsive (mobile-first)
+- Maintain animation smoothness on mobile
+- Clean spacing across all devices
+
+---
+
+🧩 CODE STRUCTURE:
+- Use reusable Vue components:
+  - Hero.vue
+  - About.vue
+  - Projects.vue
+  - Contact.vue
+- Clean folder structure
+- Comment important parts
+
+---
+
+🎯 FINAL OUTPUT:
+- Complete working Vue + Vite project
+- Clean, modern, professional UI
+- Smooth animations like high-end portfolios
+- No images included (placeholders only)
