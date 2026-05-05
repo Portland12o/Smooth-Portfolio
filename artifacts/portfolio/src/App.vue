@@ -27,7 +27,7 @@ const onComplete = () => { loading.value = false; };
         <Contact />
       </main>
     </div>
-  </Transition>
+  </div>
 </template>
 
 <style>
