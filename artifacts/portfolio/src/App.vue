@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useTheme } from "./composables/useTheme";
 import LoadingScreen from "./components/LoadingScreen.vue";
 import CustomCursor from "./components/CustomCursor.vue";
 import Navbar from "./components/Navbar.vue";
@@ -11,6 +12,9 @@ import Contact from "./components/Contact.vue";
 
 const loading = ref(true);
 const onComplete = () => { loading.value = false; };
+
+/* Init theme as early as possible */
+useTheme();
 </script>
 
 <template>
@@ -27,7 +31,7 @@ const onComplete = () => { loading.value = false; };
         <Contact />
       </main>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style>
@@ -35,5 +39,6 @@ const onComplete = () => { loading.value = false; };
   width: 100%;
   min-height: 100vh;
   background: var(--bg);
+  transition: background 0.35s ease;
 }
 </style>

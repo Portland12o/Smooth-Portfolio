@@ -8,47 +8,34 @@ gsap.registerPlugin(ScrollTrigger);
 const sectionRef = ref<HTMLElement | null>(null);
 let ctx: gsap.Context | null = null;
 
-interface Project {
-  title: string;
-  initials: string;
-  description: string;
-  tags: string[];
-  gradient: string;
-  accent: string;
-}
-
-const PROJECTS: Project[] = [
+const PROJECTS = [
   {
     title: "Luminary UI",
-    initials: "LU",
-    description: "A highly customizable component library built for modern design systems, with zero-runtime CSS-in-JS and extensive accessibility support.",
-    tags: ["React", "TypeScript", "Storybook"],
-    gradient: "linear-gradient(135deg, rgba(139,92,246,0.25) 0%, rgba(59,130,246,0.25) 100%)",
-    accent: "rgba(139,92,246,0.5)",
+    number: "01",
+    description: "A highly customizable component library for modern design systems with zero-runtime CSS-in-JS and accessibility support.",
+    tags: ["C#", "CSS", "HTML"],
+    accent: "#8B5CF6",
   },
   {
     title: "VelocityDash",
-    initials: "VD",
+    number: "02",
     description: "Real-time analytics dashboard processing millions of events per second with sub-50ms latency UI updates.",
-    tags: ["Vue 3", "D3.js", "WebSocket"],
-    gradient: "linear-gradient(135deg, rgba(245,166,35,0.25) 0%, rgba(239,68,68,0.2) 100%)",
-    accent: "rgba(245,166,35,0.5)",
+    tags: ["Python", "CSS", "Git"],
+    accent: "#F5A623",
   },
   {
     title: "Motioncraft",
-    initials: "MC",
-    description: "An animation toolkit bridging the gap between designers and developers, with visual editors for complex GSAP timelines.",
-    tags: ["GSAP", "CSS Houdini", "Vite"],
-    gradient: "linear-gradient(135deg, rgba(16,185,129,0.25) 0%, rgba(20,184,166,0.2) 100%)",
-    accent: "rgba(16,185,129,0.5)",
+    number: "03",
+    description: "An animation toolkit bridging designers and developers, with visual editors for complex CSS animation timelines.",
+    tags: ["CSS", "HTML", "Figma"],
+    accent: "#10B981",
   },
   {
     title: "Aperture",
-    initials: "AP",
-    description: "High-end portfolio generator for professional photographers with dynamic image optimization and fluid masonry layouts.",
-    tags: ["Next.js", "Tailwind", "Cloudinary"],
-    gradient: "linear-gradient(135deg, rgba(244,63,94,0.25) 0%, rgba(236,72,153,0.2) 100%)",
-    accent: "rgba(244,63,94,0.5)",
+    number: "04",
+    description: "High-end portfolio generator for photographers with dynamic image optimization and fluid masonry layouts.",
+    tags: ["C#", "HTML", "Figma"],
+    accent: "#F43F5E",
   },
 ];
 
@@ -59,8 +46,8 @@ onMounted(() => {
       scrollTrigger: { trigger: sectionRef.value, start: "top 80%" },
     });
     gsap.utils.toArray<HTMLElement>(".project-card").forEach((card) => {
-      gsap.fromTo(card, { opacity: 0, y: 50 }, {
-        opacity: 1, y: 0, duration: 0.8, ease: "power3.out",
+      gsap.fromTo(card, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 0.7, ease: "power3.out",
         scrollTrigger: { trigger: card, start: "top 88%" },
       });
     });
@@ -90,35 +77,38 @@ onUnmounted(() => ctx?.revert());
           class="project-card glass"
           :data-testid="`project-card-${project.title}`"
         >
-          <!-- Coming soon badge -->
-          <div class="cs-badge">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-            </svg>
-            Soon
-          </div>
+          <!-- Number -->
+          <span class="project-number">{{ project.number }}</span>
 
-          <!-- Hover overlay -->
-          <div class="cs-overlay">
-            <div class="cs-overlay-badge">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <!-- Top row: title + badge -->
+          <div class="project-top">
+            <h4 class="project-title">{{ project.title }}</h4>
+            <div class="cs-badge">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
               </svg>
               Coming Soon
             </div>
           </div>
 
-          <!-- Gradient placeholder -->
-          <div class="project-thumb" :style="{ background: project.gradient }">
-            <div class="project-thumb-bg" />
-            <span class="project-initials">{{ project.initials }}</span>
+          <!-- Divider -->
+          <div class="project-divider" :style="{ background: project.accent }" />
+
+          <!-- Description -->
+          <p class="project-desc">{{ project.description }}</p>
+
+          <!-- Tags -->
+          <div class="project-tags">
+            <span v-for="tag in project.tags" :key="tag" class="project-tag">{{ tag }}</span>
           </div>
 
-          <div class="project-body">
-            <h4 class="project-title">{{ project.title }}</h4>
-            <p class="project-desc">{{ project.description }}</p>
-            <div class="project-tags">
-              <span v-for="tag in project.tags" :key="tag" class="project-tag">{{ tag }}</span>
+          <!-- Bottom coming soon strip -->
+          <div class="cs-strip" :style="{ borderColor: project.accent + '33' }">
+            <div class="cs-strip-inner" :style="{ color: project.accent }">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              Project in progress — launching soon
             </div>
           </div>
         </div>
@@ -131,157 +121,113 @@ onUnmounted(() => ctx?.revert());
 <style scoped>
 .projects-section {
   padding: 7rem 0;
-  background: rgba(255,255,255,0.01);
+  background: rgba(0,0,0,0.02);
 }
 
 .projects-header {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 4rem;
+  display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 4rem;
 }
 @media (min-width: 768px) {
-  .projects-header {
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
+  .projects-header { flex-direction: row; align-items: flex-end; justify-content: space-between; }
 }
 
 .projects-title {
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  color: var(--fg);
+  font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; color: var(--fg);
 }
 .projects-sub {
-  color: var(--fg-dim);
-  font-weight: 300;
-  max-width: 400px;
-  line-height: 1.7;
-  font-size: 0.95rem;
+  color: var(--fg-dim); font-weight: 300;
+  max-width: 400px; line-height: 1.7; font-size: 0.95rem;
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem;
 }
 @media (min-width: 768px) { .projects-grid { grid-template-columns: 1fr 1fr; } }
 
+/* Card */
 .project-card {
   position: relative;
-  overflow: hidden;
+  padding: 2rem;
+  display: flex; flex-direction: column; gap: 1rem;
   transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
 }
 .project-card:hover {
-  transform: translateY(-8px);
-  border-color: rgba(245,166,35,0.25);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  transform: translateY(-6px);
+  border-color: var(--border-hover);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.25);
 }
 
-/* Coming soon badge (always visible) */
-.cs-badge {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: rgba(9,9,12,0.9);
-  border: 1px solid rgba(245,166,35,0.3);
-  color: var(--primary);
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 999px;
-}
-
-/* Hover overlay */
-.cs-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  background: rgba(9,9,12,0.65);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-.project-card:hover .cs-overlay { opacity: 1; }
-.cs-overlay-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(9,9,12,0.95);
-  border: 1px solid rgba(245,166,35,0.4);
-  color: var(--primary);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 10px 24px;
-  border-radius: 999px;
-}
-
-/* Thumbnail */
-.project-thumb {
-  width: 100%;
-  aspect-ratio: 16/9;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.project-thumb-bg {
-  position: absolute;
-  inset: 0;
-  background: rgba(9,9,12,0.7);
-  transition: background 0.4s ease;
-}
-.project-card:hover .project-thumb-bg { background: rgba(9,9,12,0.5); }
-.project-initials {
+/* Ghost number watermark */
+.project-number {
+  position: absolute; top: 1rem; right: 1.5rem;
   font-family: var(--font-display);
-  font-size: 4.5rem;
-  font-weight: 900;
-  color: rgba(255,255,255,0.08);
+  font-size: 4rem; font-weight: 900;
+  color: var(--fg); opacity: 0.04;
   letter-spacing: -0.05em;
-  position: relative;
-  z-index: 1;
-  transition: color 0.4s ease;
+  pointer-events: none; user-select: none;
+  transition: opacity 0.4s ease;
 }
-.project-card:hover .project-initials { color: rgba(255,255,255,0.15); }
+.project-card:hover .project-number { opacity: 0.06; }
 
-/* Body */
-.project-body { padding: 1.75rem; }
+/* Top row */
+.project-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 1rem;
+}
+
 .project-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--fg);
-  margin-bottom: 0.75rem;
+  font-size: 1.35rem; font-weight: 700; color: var(--fg);
   transition: color var(--transition);
+  line-height: 1.2;
 }
 .project-card:hover .project-title { color: var(--primary); }
-.project-desc {
-  font-size: 0.85rem;
-  color: var(--fg-dim);
-  font-weight: 300;
-  line-height: 1.7;
-  margin-bottom: 1.25rem;
+
+/* Coming soon badge */
+.cs-badge {
+  display: flex; align-items: center; gap: 5px; flex-shrink: 0;
+  background: var(--primary-glow);
+  border: 1px solid rgba(245,166,35,0.3);
+  color: var(--primary);
+  font-size: 0.58rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
 }
+
+/* Accent divider */
+.project-divider {
+  height: 2px; border-radius: 2px;
+  width: 40px;
+  transition: width 0.4s ease;
+}
+.project-card:hover .project-divider { width: 70px; }
+
+/* Description */
+.project-desc {
+  font-size: 0.875rem; color: var(--fg-dim);
+  font-weight: 300; line-height: 1.75;
+  flex: 1;
+}
+
+/* Tags */
 .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .project-tag {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-family: var(--font-mono); font-size: 0.65rem;
   padding: 4px 12px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: rgba(239,239,239,0.7);
+  background: var(--primary-glow);
+  border: 1px solid var(--border); border-radius: 999px;
+  color: var(--fg-dim);
+}
+
+/* Bottom strip */
+.cs-strip {
+  margin: 0.5rem -2rem -2rem;
+  padding: 0.75rem 2rem;
+  border-top: 1px solid;
+}
+.cs-strip-inner {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
 }
 </style>
