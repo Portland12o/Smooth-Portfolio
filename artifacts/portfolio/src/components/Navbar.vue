@@ -38,13 +38,7 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
   <header class="navbar" :class="{ scrolled }">
     <div class="container navbar-inner">
 
-      <!-- Logo -->
-      <a class="navbar-logo" @click.prevent="scrollTo('hero')">
-        <span class="logo-jb">J.B</span>
-        <span class="logo-name">BUNCAG</span>
-      </a>
-
-      <!-- Desktop nav -->
+      <!-- Nav links (desktop) -->
       <nav class="navbar-links">
         <a
           v-for="link in NAV_LINKS"
@@ -56,9 +50,12 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
           {{ link.name }}
           <span v-if="active === link.href" class="nav-indicator" />
         </a>
+      </nav>
 
-        <!-- Theme toggle -->
-        <button class="theme-toggle" @click="toggle" :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+      <!-- Right controls -->
+      <div class="navbar-right">
+        <button class="theme-toggle" @click="toggle" :aria-label="isDark ? 'Switch to light' : 'Switch to dark'">
+          <!-- Sun icon (shown in dark mode) -->
           <svg v-if="isDark" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"/>
             <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -66,26 +63,13 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
             <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
           </svg>
+          <!-- Moon icon (shown in light mode) -->
           <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
-      </nav>
 
-      <!-- Mobile controls -->
-      <div class="navbar-mobile-controls">
-        <button class="theme-toggle" @click="toggle">
-          <svg v-if="isDark" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"/>
-            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <svg v-else width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
+        <!-- Mobile hamburger -->
         <button class="menu-toggle" @click="menuOpen = !menuOpen" aria-label="Toggle menu">
           <span class="hamburger" :class="{ open: menuOpen }">
             <span /><span /><span />
@@ -129,23 +113,7 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
   display: flex; align-items: center; justify-content: space-between;
 }
 
-/* Logo */
-.navbar-logo {
-  display: flex; align-items: baseline; gap: 6px; cursor: none;
-}
-.logo-jb {
-  font-family: var(--font-serif);
-  font-size: 1.05rem; font-weight: 600;
-  color: var(--primary); letter-spacing: 0.05em;
-}
-.logo-name {
-  font-family: var(--font-display);
-  font-size: 0.65rem; font-weight: 700;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--fg-dim);
-}
-
-/* Desktop nav */
+/* Desktop nav — left aligned */
 .navbar-links { display: none; gap: 2.5rem; align-items: center; }
 @media (min-width: 768px) { .navbar-links { display: flex; } }
 
@@ -162,7 +130,9 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
   height: 1px; background: var(--primary); border-radius: 1px;
 }
 
-/* Theme toggle */
+/* Right side controls */
+.navbar-right { display: flex; align-items: center; gap: 0.75rem; }
+
 .theme-toggle {
   display: flex; align-items: center; justify-content: center;
   width: 32px; height: 32px; border-radius: 50%;
@@ -172,11 +142,13 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
 }
 .theme-toggle:hover { color: var(--primary); border-color: var(--primary); }
 
-/* Mobile */
-.navbar-mobile-controls { display: flex; align-items: center; gap: 0.75rem; }
-@media (min-width: 768px) { .navbar-mobile-controls { display: none; } }
+/* Hamburger — mobile only */
+.menu-toggle {
+  background: none; border: none; padding: 4px;
+  display: flex; align-items: center;
+}
+@media (min-width: 768px) { .menu-toggle { display: none; } }
 
-.menu-toggle { background: none; border: none; padding: 4px; display: flex; align-items: center; }
 .hamburger { display: flex; flex-direction: column; gap: 5px; width: 20px; }
 .hamburger span {
   display: block; height: 1.5px; background: var(--fg-dim);
@@ -186,6 +158,7 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
+/* Mobile menu */
 .mobile-menu {
   position: absolute; top: 100%; left: 0; right: 0;
   display: flex; flex-direction: column;
@@ -202,8 +175,6 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
 .mobile-link:last-child { border-bottom: none; }
 .mobile-link:hover, .mobile-link.active { color: var(--primary); background: var(--primary-glow); }
 
-.slide-down-enter-active, .slide-down-leave-active {
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
+.slide-down-enter-active, .slide-down-leave-active { transition: opacity 0.22s ease, transform 0.22s ease; }
 .slide-down-enter-from, .slide-down-leave-to { opacity: 0; transform: translateY(-6px); }
 </style>
