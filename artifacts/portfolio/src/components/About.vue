@@ -18,7 +18,7 @@ onMounted(() => {
       opacity: 1, x: 0, duration: 1, ease: "power3.out",
       scrollTrigger: { trigger: sectionRef.value, start: "top 72%" },
     });
-    gsap.fromTo(".about-stat", { opacity: 0, y: 20 }, {
+    gsap.fromTo(".about-stat", { opacity: 0, y: 24 }, {
       opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power2.out",
       scrollTrigger: { trigger: ".about-stats", start: "top 85%" },
     });
@@ -34,10 +34,10 @@ onUnmounted(() => ctx?.revert());
       <!-- Left -->
       <div class="about-left">
         <p class="section-label">About Me</p>
+        <div class="divider" />
         <h3 class="about-heading">Design meets<br />logic.</h3>
-        <div class="about-card glass">
-          <div class="about-card-initials">JB</div>
-          <p class="about-card-code">// front-end developer<br />const passion = "infinite";</p>
+        <div class="about-monogram">
+          <span>JB</span>
         </div>
       </div>
 
@@ -45,34 +45,34 @@ onUnmounted(() => ctx?.revert());
       <div class="about-right">
         <div class="about-paragraphs">
           <p>
-            I'm a front-end developer passionate about the intersection of engineering
-            and design. I build interfaces that don't just work flawlessly — they feel
-            <strong>alive</strong>.
+            I'm a front-end developer passionate about the intersection of
+            engineering and design. I build interfaces that don't just work
+            flawlessly — they feel <strong>alive</strong>.
           </p>
           <p>
-            With a strong eye for visual aesthetics and a solid foundation in modern
-            JavaScript frameworks, I bridge the gap between static mockups and
-            interactive reality. Every animation is intentional. Every line of code is
-            optimized.
+            With a strong eye for visual aesthetics and a solid foundation
+            in modern web technologies, I bridge the gap between static
+            mockups and interactive reality. Every detail is intentional.
+            Every line of code is purposeful.
           </p>
-          <p>
-            My philosophy: <em>"Complex systems deserve elegant interfaces."</em>
+          <p class="quote">
+            "Complex systems deserve elegant interfaces."
           </p>
         </div>
 
         <div class="about-stats">
           <div class="about-stat">
-            <div class="about-stat-num">8mo</div>
+            <div class="about-stat-num">8<span>mo</span></div>
             <div class="about-stat-label">Experience</div>
           </div>
           <div class="about-stat-div" />
           <div class="about-stat">
-            <div class="about-stat-num">10+</div>
+            <div class="about-stat-num">10<span>+</span></div>
             <div class="about-stat-label">Projects</div>
           </div>
           <div class="about-stat-div" />
           <div class="about-stat">
-            <div class="about-stat-num">100%</div>
+            <div class="about-stat-num">100<span>%</span></div>
             <div class="about-stat-label">Commitment</div>
           </div>
         </div>
@@ -83,93 +83,60 @@ onUnmounted(() => ctx?.revert());
 </template>
 
 <style scoped>
-.about-section { padding: 7rem 0; }
+.about-section { padding: 8rem 0; background: var(--bg-2); transition: background 0.4s ease; }
 
 .about-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
+  display: grid; grid-template-columns: 1fr; gap: 4rem;
 }
 @media (min-width: 1024px) {
-  .about-grid { grid-template-columns: 5fr 7fr; align-items: center; }
+  .about-grid { grid-template-columns: 4fr 8fr; align-items: center; }
 }
 
 .about-heading {
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
-  font-weight: 700;
-  color: var(--fg);
-  margin-bottom: 2.5rem;
-  line-height: 1.05;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem); font-weight: 700;
+  color: var(--fg); margin-bottom: 2rem; line-height: 1.05;
 }
 
-.about-card {
-  aspect-ratio: 1;
-  position: relative;
-  overflow: hidden;
-  display: none;
+.about-monogram {
+  width: 100px; height: 100px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--bg);
 }
-@media (min-width: 1024px) { .about-card { display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; } }
-.about-card-initials {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 6rem;
-  font-weight: 900;
-  color: rgba(255,255,255,0.04);
-  letter-spacing: -0.05em;
-  text-transform: uppercase;
-  user-select: none;
-}
-.about-card-code {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: rgba(245, 166, 35, 0.5);
-  line-height: 1.8;
-  position: relative;
-  z-index: 1;
+.about-monogram span {
+  font-family: var(--font-serif);
+  font-size: 2.5rem; font-weight: 600;
+  color: var(--primary); letter-spacing: 0.05em;
 }
 
 .about-paragraphs {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--fg-dim);
-  font-weight: 300;
-  margin-bottom: 3rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.1rem; line-height: 1.8;
+  color: var(--fg-dim); font-weight: 400; margin-bottom: 3rem;
 }
 .about-paragraphs strong { color: var(--fg); font-weight: 600; }
-.about-paragraphs em { color: var(--fg); font-style: italic; }
+
+.quote {
+  font-style: italic; color: var(--muted) !important;
+  border-left: 2px solid var(--primary); padding-left: 1.25rem;
+  font-size: 1rem !important;
+}
 
 .about-stats {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-  padding-top: 2.5rem;
-  border-top: 1px solid var(--border);
+  display: flex; gap: 2.5rem; align-items: center;
+  padding-top: 2.5rem; border-top: 1px solid var(--border);
 }
 .about-stat { text-align: left; }
 .about-stat-num {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: -0.04em;
+  font-family: var(--font-display); font-size: 2.4rem;
+  font-weight: 700; color: var(--primary); letter-spacing: -0.04em; line-height: 1;
 }
+.about-stat-num span { font-size: 1.2rem; }
 .about-stat-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--fg-dim);
-  margin-top: 3px;
+  font-family: var(--font-mono); font-size: 0.58rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-top: 5px;
 }
-.about-stat-div {
-  width: 1px;
-  height: 36px;
-  background: var(--border);
-}
+.about-stat-div { width: 1px; height: 40px; background: var(--border); }
 </style>
