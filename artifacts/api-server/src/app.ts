@@ -1,11 +1,12 @@
 import express, { type Express } from "express";
 import cors from "cors";
-import * as pinoHttpModule from "pino-http";
+import * as pinoHttpNs from "pino-http";
+import type { Options, HttpLogger } from "pino-http";
 import type { IncomingMessage, ServerResponse } from "http";
 import router from "./routes";
 import { logger } from "./lib/logger";
 
-const pinoHttp = pinoHttpModule.default;
+const pinoHttp = pinoHttpNs as unknown as (opts?: Options) => HttpLogger;
 
 const app: Express = express();
 
